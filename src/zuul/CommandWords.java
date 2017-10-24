@@ -11,13 +11,23 @@ public class CommandWords
     private static final String[] VALID_COMMANDS = {
         "ir_para", "sair", "ajuda"
     };
+    
+    public CommandWords(){
+        //não faz nada
+    }
 
     /**
      * Construtor - inicializa os comandos
+     * @param VALID_COMMANDS
+     * @return 
+    
      */
-    public CommandWords()
-    {
-        // nada a fazer no momento...
+    public String getCommandList(){
+        String linha="";
+        for(String comando:VALID_COMMANDS){
+            linha=linha + comando + "";
+        }
+        return linha;
     }
 
     /**
