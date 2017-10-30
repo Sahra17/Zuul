@@ -9,7 +9,7 @@ public class CommandWords
 {
     // um array constante que contém todos os comandos válidos
     private static final String[] VALID_COMMANDS = {
-        "ir_para", "sair", "ajuda"
+        "ir_para", "sair", "ajuda","examinar","comer"
     };
     
     public CommandWords(){
@@ -25,7 +25,7 @@ public class CommandWords
     public String getCommandList(){
         String linha="";
         for(String comando:VALID_COMMANDS){
-            linha=linha + comando + "";
+            linha=linha + comando + " ";
         }
         return linha;
     }

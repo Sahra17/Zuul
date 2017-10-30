@@ -1,3 +1,4 @@
+
 package zuul;
 
 /**
@@ -25,13 +26,18 @@ public class Game
     private void createRooms()
     {
         Room outside, theatre, pub, lab, office, attic;
+        Item table, chair, tv;
+        
+        //cria os itens
+        chair = new Item("uma cadeira", 20);
+        tv = new Item("uma TV", 15);
       
         // create the rooms
         outside = new Room("fora da entrada principal da universidade");
         theatre = new Room("em um auditório");
-        pub = new Room("na cantina do campus");
-        lab = new Room("em um laboratório de informática");
-        office = new Room("na sala dos professores");
+        pub = new Room("na cantina do campus", new Item("uma mesa", 50));
+        lab = new Room("em um laboratório de informática", chair);
+        office = new Room("na sala dos professores", tv);
         attic = new Room("No sótão do laboratório");
         
         // initialise room exits
@@ -82,7 +88,7 @@ public class Game
         System.out.println("Mundo de Zuul é um jogo de aventura, incrivelmente chato.");
         System.out.println("Digite 'ajuda' se você precisar de ajuda.");
         System.out.println();
-        
+       
         printLocationInfo();
     }
         /**
@@ -114,12 +120,16 @@ public class Game
             goRoom(command);
         else if (commandWord.equals("sair"))
             wantToQuit = quit(command);
+        else if(commandWord.equals("examinar"))
+            look();
+        else if(commandWord.equals("comer"))
+            comer();
 
         return wantToQuit;
     }
 
     // implementations of user commands:
-
+    
     /**
      * Imprime informações de ajuda.
      * Aqui imprimimos ua mensagem estúpida e listamos os comandos
@@ -174,5 +184,14 @@ public class Game
         else {
             return true;  // significa que queremos sair
         }
+    }
+    
+    private void look(){
+        printLocationInfo();
+    }
+    
+    private void comer(){
+        System.out.println("Você comeu agora e não está mais com fome");
+        System.out.println(currentRoom.getExitString());
     }
 }
