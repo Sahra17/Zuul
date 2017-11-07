@@ -1,6 +1,8 @@
 
 package zuul;
 
+import java.util.Stack;
+
 /**
  *  Esta é a classe principal do jogo World of Zuul. 
  *  
@@ -10,6 +12,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Stack<Room> previousRooms;
         
     /**
      * Cria o jogo e inicializa o mapa interno.
@@ -18,6 +21,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        previousRooms = new Stack<>();
     }
 
     /**
@@ -124,7 +128,9 @@ public class Game
             look();
         else if(commandWord.equals("comer"))
             comer();
-
+        else if(commandWord.equals("voltar"))
+            returnRoom(command);
+        
         return wantToQuit;
     }
 
@@ -144,6 +150,19 @@ public class Game
         System.out.println(" " + parser.getCommandList());
     }
 
+    private void returnRoom(Command command){
+        if(command.hasSecondWord()){
+            System.out.println("Voltar o quê?");
+        }else{
+            if(previousRooms.empty()){
+                System.out.println("Você já está no início!");
+            }else{
+                currentRoom = previousRooms.pop();
+          
+                printLocationInfo();
+            }   
+        }  
+    }
     /** 
      * Tenta ir para uma direção. Se há uma saída, entra na
      * nova sala, senão imprime uma mensagem de erro.
@@ -165,6 +184,7 @@ public class Game
             System.out.println("Não há uma porta!");
         }
         else {
+            previousRooms.push(currentRoom);
             currentRoom = nextRoom;
             printLocationInfo();
         }
